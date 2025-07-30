@@ -177,7 +177,7 @@
             .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(2) {
                 position: sticky !important;
                 left: 0 !important;
-                background: #fff !important;
+                background: #fff;
                 z-index: 10 !important;
                 border-right: 2px solid #ddd !important;
                 border-left: none !important;
@@ -188,7 +188,7 @@
             .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(3) {
                 position: sticky !important;
                 left: var(--col2-width, 30px) !important;
-                background: #fff !important;
+                background: #fff;
                 z-index: 9 !important;
                 border-right: 2px solid #ddd !important;
                 border-left: none !important;
@@ -199,7 +199,7 @@
             .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(4) {
                 position: sticky !important;
                 left: var(--col2-3-width, 60px) !important;
-                background: #fff !important;
+                background: #fff;
                 z-index: 8 !important;
                 border-right: 2px solid #ddd !important;
                 border-left: none !important;
@@ -210,10 +210,18 @@
             .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(5) {
                 position: sticky !important;
                 left: var(--col2-4-width, 90px) !important;
-                background: #fff !important;
+                background: #fff;
                 z-index: 7 !important;
                 border-right: 2px solid #ddd !important;
                 border-left: none !important;
+            }
+
+            /* 表头固定列保持白色背景 */
+            .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(2),
+            .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(3),
+            .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(4),
+            .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(5) {
+                background: #fff !important;
             }
 
             /* 隐藏第一列 */
@@ -227,9 +235,45 @@
             background: #f5f5f5 !important;
         }
 
-        /* 选中行效果 - 从第2列开始到第5列 */
+        /* 选中行效果 - 从第2列开始到第5列 - 提高优先级 */
         .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-state-highlight td:nth-child(n+2):nth-child(-n+5),
-        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-row-ltr.ui-state-highlight td:nth-child(n+2):nth-child(-n+5) {
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-row-ltr.ui-state-highlight td:nth-child(n+2):nth-child(-n+5),
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-state-highlight td:nth-child(2),
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-state-highlight td:nth-child(3),
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-state-highlight td:nth-child(4),
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-state-highlight td:nth-child(5),
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-row-ltr.ui-state-highlight td:nth-child(2),
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-row-ltr.ui-state-highlight td:nth-child(3),
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-row-ltr.ui-state-highlight td:nth-child(4),
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-row-ltr.ui-state-highlight td:nth-child(5) {
+            background: #e6f3ff !important;
+        }
+
+        /* jqGrid的其他选中状态样式 */
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-row-ltr.ui-state-active td:nth-child(n+2):nth-child(-n+5),
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-state-active td:nth-child(n+2):nth-child(-n+5) {
+            background: #e6f3ff !important;
+        }
+
+        /* 处理点击选中状态 */
+        .ui-jqgrid .ui-jqgrid-btable tbody tr[aria-selected="true"] td:nth-child(n+2):nth-child(-n+5) {
+            background: #e6f3ff !important;
+        }
+
+        /* 最高优先级选中行样式 - 覆盖所有其他背景色 */
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-state-highlight td:nth-child(2)[style*="position: sticky"],
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-state-highlight td:nth-child(3)[style*="position: sticky"],
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-state-highlight td:nth-child(4)[style*="position: sticky"],
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-state-highlight td:nth-child(5)[style*="position: sticky"],
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-row-ltr.ui-state-highlight td:nth-child(2)[style*="position: sticky"],
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-row-ltr.ui-state-highlight td:nth-child(3)[style*="position: sticky"],
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-row-ltr.ui-state-highlight td:nth-child(4)[style*="position: sticky"],
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-row-ltr.ui-state-highlight td:nth-child(5)[style*="position: sticky"] {
+            background: #e6f3ff !important;
+        }
+
+        /* 多选模式下的选中行 */
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-state-highlight.ui-multiselect td:nth-child(n+2):nth-child(-n+5) {
             background: #e6f3ff !important;
         }
 
