@@ -25,13 +25,13 @@
     transform: translateZ(0) !important;
 }
 
-/* 第二列表头固定 - 保持原表头样式 */
+/* 第二列表头固定 - 使用指定背景色 */
 .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(2) {
     position: sticky !important;
     left: 0px !important;
-    /* 保持jqGrid原始表头样式 */
-    background: #eeeeee !important; /* jqGrid默认表头背景色 */
-    background-image: linear-gradient(to bottom, #f8f8f8, #e8e8e8) !important; /* 渐变效果 */
+    /* 使用指定的表头背景色 */
+    background: #f5f5f6 !important;
+    background-image: none !important;
     z-index: 20 !important; /* 表头层级高于数据行 */
     border-right: 1px solid #ddd !important;
     border-left: 1px solid #ddd !important;
@@ -58,8 +58,8 @@
 .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(3) {
     position: sticky !important;
     left: 30px !important;
-    background: #eeeeee !important;
-    background-image: linear-gradient(to bottom, #f8f8f8, #e8e8e8) !important;
+    background: #f5f5f6 !important;
+    background-image: none !important;
     z-index: 19 !important;
     border-right: 1px solid #ddd !important;
     border-top: 1px solid #ddd !important;
@@ -85,8 +85,8 @@
 .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(4) {
     position: sticky !important;
     left: 90px !important;
-    background: #eeeeee !important;
-    background-image: linear-gradient(to bottom, #f8f8f8, #e8e8e8) !important;
+    background: #f5f5f6 !important;
+    background-image: none !important;
     z-index: 18 !important;
     border-right: 1px solid #ddd !important;
     border-top: 1px solid #ddd !important;
@@ -112,8 +112,8 @@
 .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(5) {
     position: sticky !important;
     left: 150px !important;
-    background: #eeeeee !important;
-    background-image: linear-gradient(to bottom, #f8f8f8, #e8e8e8) !important;
+    background: #f5f5f6 !important;
+    background-image: none !important;
     z-index: 17 !important;
     border-right: 1px solid #ddd !important;
     border-top: 1px solid #ddd !important;
@@ -133,10 +133,10 @@
     background: #e6f3ff !important;
 }
 
-/* 确保表头在悬停和选中时保持原样式 */
+/* 确保表头在悬停和选中时保持指定背景色 */
 .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(n+2):nth-child(-n+5) {
-    background: #eeeeee !important;
-    background-image: linear-gradient(to bottom, #f8f8f8, #e8e8e8) !important;
+    background: #f5f5f6 !important;
+    background-image: none !important;
 }
 
 /* 滚动容器 */
