@@ -1,0 +1,94 @@
+/* jqGrid 固定列样式 - 修复1像素偏移问题 */
+
+/* 为第一列添加固定定位样式 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:first-child,
+.ui-jqgrid .ui-jqgrid-htable thead tr th:first-child {
+    position: sticky;
+    left: 0;
+    background: #fff;
+    z-index: 10;
+    /* 使用box-shadow替代border来避免计算问题 */
+    box-shadow: 1px 0 0 0 #ddd;
+}
+
+/* 第二列固定 - 需要计算第一列宽度 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(2),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(2) {
+    position: sticky;
+    left: var(--first-col-width, 30px); /* 使用CSS变量，默认30px */
+    background: #fff;
+    z-index: 9;
+    box-shadow: 1px 0 0 0 #ddd;
+}
+
+/* 第三列固定 - 需要计算前两列宽度 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(3),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(3) {
+    position: sticky;
+    left: var(--first-two-cols-width, 60px); /* 使用CSS变量，默认60px */
+    background: #fff;
+    z-index: 8;
+    box-shadow: 1px 0 0 0 #e7eaec;
+}
+
+/* 第四列固定 - 需要计算前三列宽度 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(4),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(4) {
+    position: sticky;
+    left: var(--first-three-cols-width, 90px); /* 使用CSS变量，默认90px */
+    background: #fff;
+    z-index: 7;
+    box-shadow: 1px 0 0 0 #ddd;
+}
+
+/* 解决方案1: 使用精确的像素计算 */
+/* 如果你知道确切的列宽，可以使用这个版本 */
+/*
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(2),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(2) {
+    position: sticky;
+    left: 30px; // 第一列实际宽度
+    background: #fff;
+    z-index: 9;
+    box-shadow: 1px 0 0 0 #ddd;
+}
+
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(3),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(3) {
+    position: sticky;
+    left: 61px; // 第一列30px + 第二列30px + 边框1px
+    background: #fff;
+    z-index: 8;
+    box-shadow: 1px 0 0 0 #e7eaec;
+}
+
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(4),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(4) {
+    position: sticky;
+    left: 92px; // 前三列总宽度 + 边框
+    background: #fff;
+    z-index: 7;
+    box-shadow: 1px 0 0 0 #ddd;
+}
+*/
+
+/* 鼠标悬停效果 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr:hover td:nth-child(-n+4) {
+    background: #f5f5f5;
+}
+
+/* 选中行效果 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr.ui-state-highlight td:nth-child(-n+4) {
+    background: #e6f3ff;
+}
+
+/* 确保表格容器允许水平滚动 */
+.ui-jqgrid .ui-jqgrid-bdiv {
+    overflow-x: auto;
+}
+
+/* 防止固定列下的内容被遮挡 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(n+5) {
+    position: relative;
+    z-index: 1;
+}
