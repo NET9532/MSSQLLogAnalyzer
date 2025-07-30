@@ -165,16 +165,22 @@
             background-color: #005cb1;
         }
         
-        /* ===== 修复后的固定列样式 ===== */
+        /* ===== 修复后的固定列样式 - 第一列隐藏版本 ===== */
         /* 重置所有相关元素的box-sizing */
         .ui-jqgrid .ui-jqgrid-btable tbody tr td,
         .ui-jqgrid .ui-jqgrid-htable thead tr th {
             box-sizing: border-box;
         }
 
-        /* 第一列固定 */
+        /* 隐藏第一列 */
         .ui-jqgrid .ui-jqgrid-btable tbody tr td:first-child,
         .ui-jqgrid .ui-jqgrid-htable thead tr th:first-child {
+            display: none !important;
+        }
+
+        /* 第二列固定（实际显示的第一列） */
+        .ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(2),
+        .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(2) {
             position: sticky !important;
             left: 0 !important;
             background: #fff !important;
@@ -184,47 +190,47 @@
             border-left: 1px solid #ddd !important;
         }
 
-        /* 第二列固定 - 使用CSS变量 */
-        .ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(2),
-        .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(2) {
+        /* 第三列固定（实际显示的第二列） */
+        .ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(3),
+        .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(3) {
             position: sticky !important;
-            left: var(--col1-width, 30px) !important;
+            left: var(--col2-width, 30px) !important;
             background: #fff !important;
             z-index: 9 !important;
             box-shadow: 1px 0 0 0 #ddd !important;
             border-right: none !important;
         }
 
-        /* 第三列固定 */
-        .ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(3),
-        .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(3) {
+        /* 第四列固定（实际显示的第三列） */
+        .ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(4),
+        .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(4) {
             position: sticky !important;
-            left: var(--col1-2-width, 60px) !important;
+            left: var(--col2-3-width, 60px) !important;
             background: #fff !important;
             z-index: 8 !important;
             box-shadow: 1px 0 0 0 #ddd !important;
             border-right: none !important;
         }
 
-        /* 第四列固定 */
-        .ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(4),
-        .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(4) {
+        /* 第五列固定（实际显示的第四列） */
+        .ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(5),
+        .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(5) {
             position: sticky !important;
-            left: var(--col1-3-width, 90px) !important;
+            left: var(--col2-4-width, 90px) !important;
             background: #fff !important;
             z-index: 7 !important;
             box-shadow: 1px 0 0 0 #ddd !important;
             border-right: none !important;
         }
 
-        /* 悬停效果 */
-        .ui-jqgrid .ui-jqgrid-btable tbody tr:hover td:nth-child(-n+4) {
+        /* 悬停效果 - 从第2列开始到第5列 */
+        .ui-jqgrid .ui-jqgrid-btable tbody tr:hover td:nth-child(n+2):nth-child(-n+5) {
             background: #f5f5f5 !important;
         }
 
-        /* 选中行效果 */
-        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-state-highlight td:nth-child(-n+4),
-        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-row-ltr.ui-state-highlight td:nth-child(-n+4) {
+        /* 选中行效果 - 从第2列开始到第5列 */
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-state-highlight td:nth-child(n+2):nth-child(-n+5),
+        .ui-jqgrid .ui-jqgrid-btable tbody tr.ui-row-ltr.ui-state-highlight td:nth-child(n+2):nth-child(-n+5) {
             background: #e6f3ff !important;
         }
 
@@ -234,8 +240,8 @@
         }
 
         /* 非固定列的z-index */
-        .ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(n+5),
-        .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(n+5) {
+        .ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(n+6),
+        .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(n+6) {
             position: relative;
             z-index: 1;
         }
@@ -265,8 +271,8 @@
     <script src="~/Content/scripts/bootstrap/bootstrap-select.min.js"></script>
     <script src="~/Content/scripts/bootstrap/defaults-zh_CN.min.js"></script>
     
-    <!-- 添加固定列修复脚本 -->
-    <script src="~/Content/scripts/sample-grid-sticky-fix.js"></script>
+    <!-- 添加固定列修复脚本 - 第一列隐藏版本 -->
+    <script src="~/Content/scripts/sample-grid-sticky-fix-hidden-first.js"></script>
 
     <script>
         sampleAuthArray = @(new MvcHtmlString(Model.SubAuthArrayJson));
@@ -281,12 +287,12 @@
             $('div[role="tooltip"]').remove();
             top.reloadBaseData && top.reloadBaseData(function () {
                 $gTable.trigger("reloadGrid");
-                // 刷新后重新应用固定列
-                setTimeout(function() {
-                    if (window.SampleGridStickyFix) {
-                        SampleGridStickyFix.applyFix();
-                    }
-                }, 200);
+                                 // 刷新后重新应用固定列（第一列隐藏版本）
+                 setTimeout(function() {
+                     if (window.SampleGridStickyFixHidden) {
+                         SampleGridStickyFixHidden.applyFix();
+                     }
+                 }, 200);
             });
         };
 
@@ -298,16 +304,16 @@
             // 初始化表格
             initAnalyzeGrid();
             
-            // 初始化固定列修复 - 在表格初始化完成后
-            setTimeout(function() {
-                if (window.SampleGridStickyFix) {
-                    SampleGridStickyFix.init({
-                        gridId: 'gridTable',
-                        fixedColumns: 4,
-                        debug: true // 开发时可以设为true，生产环境设为false
-                    });
-                }
-            }, 500);
+                         // 初始化固定列修复 - 在表格初始化完成后（第一列隐藏版本）
+             setTimeout(function() {
+                 if (window.SampleGridStickyFixHidden) {
+                     SampleGridStickyFixHidden.init({
+                         gridId: 'gridTable',
+                         fixedColumns: 4, // 要固定的可见列数
+                         debug: true // 开发时可以设为true，生产环境设为false
+                     });
+                 }
+             }, 500);
             
             var oobj = $(".form-group select:not(.selectpicker)");
             initSelect2New(oobj);
@@ -337,11 +343,11 @@
         window.searchSample = function() {
             if (originalSearchSample) {
                 originalSearchSample.apply(this, arguments);
-                setTimeout(function() {
-                    if (window.SampleGridStickyFix) {
-                        SampleGridStickyFix.applyFix();
-                    }
-                }, 300);
+                                 setTimeout(function() {
+                     if (window.SampleGridStickyFixHidden) {
+                         SampleGridStickyFixHidden.applyFix();
+                     }
+                 }, 300);
             }
         };
 
