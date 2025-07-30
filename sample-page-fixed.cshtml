@@ -190,12 +190,11 @@
             transform: translateZ(0) !important;
         }
 
-        /* 第二列表头固定 - 使用指定背景色 */
+        /* 第二列表头固定 - 继承原表头样式 */
         .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(2) {
             position: sticky !important;
             left: 0px !important;
-            background: #f5f5f6 !important;
-            background-image: none !important;
+            /* 不设置background，继承原始样式 */
             z-index: 20 !important;
             border-right: 1px solid #ddd !important;
             border-left: 1px solid #ddd !important;
@@ -212,18 +211,19 @@
             background: #fff !important;
             z-index: 9 !important;
             border-right: 1px solid #ddd !important;
+            border-left: 1px solid #ddd !important;
             will-change: transform !important;
             transform: translateZ(0) !important;
         }
 
-        /* 第三列表头固定 */
+        /* 第三列表头固定 - 继承原表头样式 */
         .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(3) {
             position: sticky !important;
             left: 30px !important;
-            background: #f5f5f6 !important;
-            background-image: none !important;
+            /* 不设置background，继承原始样式 */
             z-index: 19 !important;
             border-right: 1px solid #ddd !important;
+            border-left: 1px solid #ddd !important;
             border-top: 1px solid #ddd !important;
             border-bottom: 1px solid #ddd !important;
             will-change: transform !important;
@@ -237,18 +237,19 @@
             background: #fff !important;
             z-index: 8 !important;
             border-right: 1px solid #ddd !important;
+            border-left: 1px solid #ddd !important;
             will-change: transform !important;
             transform: translateZ(0) !important;
         }
 
-        /* 第四列表头固定 */
+        /* 第四列表头固定 - 继承原表头样式 */
         .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(4) {
             position: sticky !important;
             left: 90px !important;
-            background: #f5f5f6 !important;
-            background-image: none !important;
+            /* 不设置background，继承原始样式 */
             z-index: 18 !important;
             border-right: 1px solid #ddd !important;
+            border-left: 1px solid #ddd !important;
             border-top: 1px solid #ddd !important;
             border-bottom: 1px solid #ddd !important;
             will-change: transform !important;
@@ -262,18 +263,19 @@
             background: #fff !important;
             z-index: 7 !important;
             border-right: 1px solid #ddd !important;
+            border-left: 1px solid #ddd !important;
             will-change: transform !important;
             transform: translateZ(0) !important;
         }
 
-        /* 第五列表头固定 */
+        /* 第五列表头固定 - 继承原表头样式 */
         .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(5) {
             position: sticky !important;
             left: 150px !important;
-            background: #f5f5f6 !important;
-            background-image: none !important;
+            /* 不设置background，继承原始样式 */
             z-index: 17 !important;
             border-right: 1px solid #ddd !important;
+            border-left: 1px solid #ddd !important;
             border-top: 1px solid #ddd !important;
             border-bottom: 1px solid #ddd !important;
             will-change: transform !important;
@@ -290,23 +292,25 @@
             background: #e6f3ff !important;
         }
 
-        /* 确保表头在悬停和选中时保持指定背景色 */
-        .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(n+2):nth-child(-n+5) {
-            background: #f5f5f6 !important;
-            background-image: none !important;
-        }
+        /* 表头保持原始样式，不覆盖背景色 */
 
         /* 滚动容器 */
         .ui-jqgrid .ui-jqgrid-bdiv {
             overflow-x: auto !important;
         }
 
-        /* 移除其他列的左边框 */
-        .ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(n+6) {
+        /* 确保第6列有左边框作为分割线 */
+        .ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(6),
+        .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(6) {
+            border-left: 1px solid #ddd !important;
+        }
+
+        /* 其他列移除左边框 */
+        .ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(n+7) {
             border-left: none !important;
         }
 
-        .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(n+6) {
+        .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(n+7) {
             border-left: none !important;
         }
 
