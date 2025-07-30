@@ -1,0 +1,123 @@
+/* 简单稳定的固定列方案 - 避免晃动 */
+
+/* 基础设置 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td,
+.ui-jqgrid .ui-jqgrid-htable thead tr th {
+    box-sizing: border-box !important;
+}
+
+/* 隐藏第一列 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:first-child,
+.ui-jqgrid .ui-jqgrid-htable thead tr th:first-child {
+    display: none !important;
+}
+
+/* 第二列固定（实际显示的第一列） - 固定宽度避免晃动 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(2),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(2) {
+    position: sticky !important;
+    left: 0px !important;
+    background: #fff !important;
+    z-index: 10 !important;
+    border-right: 1px solid #ddd !important;
+    border-left: 1px solid #ddd !important;
+    min-width: 30px !important;
+    /* 防止晃动的关键设置 */
+    will-change: transform !important;
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+}
+
+/* 第三列固定（实际显示的第二列） */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(3),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(3) {
+    position: sticky !important;
+    left: 30px !important; /* 第二列的固定宽度 */
+    background: #fff !important;
+    z-index: 9 !important;
+    border-right: 1px solid #ddd !important;
+    min-width: 80px !important;
+    /* 防止晃动的关键设置 */
+    will-change: transform !important;
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+}
+
+/* 第四列固定（实际显示的第三列） */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(4),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(4) {
+    position: sticky !important;
+    left: 110px !important; /* 前两列宽度之和 30+80 */
+    background: #fff !important;
+    z-index: 8 !important;
+    border-right: 1px solid #ddd !important;
+    min-width: 60px !important;
+    /* 防止晃动的关键设置 */
+    will-change: transform !important;
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+}
+
+/* 第五列固定（实际显示的第四列） */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(5),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(5) {
+    position: sticky !important;
+    left: 170px !important; /* 前三列宽度之和 30+80+60 */
+    background: #fff !important;
+    z-index: 7 !important;
+    border-right: 1px solid #ddd !important;
+    min-width: 80px !important;
+    /* 防止晃动的关键设置 */
+    will-change: transform !important;
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+}
+
+/* 移除其他列的左边框 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(n+6),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(n+6) {
+    border-left: none !important;
+}
+
+/* 悬停效果 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr:hover td:nth-child(n+2):nth-child(-n+5) {
+    background: #f5f5f5 !important;
+}
+
+/* 选中行效果 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr.ui-state-highlight td:nth-child(n+2):nth-child(-n+5),
+.ui-jqgrid .ui-jqgrid-btable tbody tr.ui-row-ltr.ui-state-highlight td:nth-child(n+2):nth-child(-n+5) {
+    background: #e6f3ff !important;
+}
+
+/* 确保滚动容器设置正确 */
+.ui-jqgrid .ui-jqgrid-bdiv {
+    overflow-x: auto !important;
+    position: relative !important;
+}
+
+/* 非固定列的层级 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(n+6),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(n+6) {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* 强制硬件加速，减少重绘 */
+.ui-jqgrid .ui-jqgrid-btable,
+.ui-jqgrid .ui-jqgrid-htable {
+    transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+}
+
+/* 如果你知道确切的列宽，可以调整这些值：
+   第二列: 30px
+   第三列: 80px  
+   第四列: 60px
+   第五列: 80px
+   
+   对应的left值：
+   第三列: 30px
+   第四列: 110px (30+80)
+   第五列: 170px (30+80+60)
+*/

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jqGrid 固定列示例 - 修复1像素偏移</title>
+    
+    <!-- jqGrid CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/free-jqgrid@4.15.5/css/ui.jqgrid.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css">
+    
+    <!-- 自定义固定列样式 -->
+    <link rel="stylesheet" href="jqgrid-fixed-columns.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .grid-container {
+            width: 100%;
+            margin: 20px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .demo-info {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196F3;
+        }
+        
+        .demo-info h3 {
+            margin-top: 0;
+            color: #1976D2;
+        }
+        
+        .buttons {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 5px;
+            font-size: 14px;
+        }
+        
+        .btn:hover {
+            background: #1976D2;
+        }
+        
+        .btn.danger {
+            background: #f44336;
+        }
+        
+        .btn.danger:hover {
+            background: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>jqGrid 固定列示例 - 修复1像素偏移问题</h1>
+        
+        <div class="demo-info">
+            <h3>功能说明</h3>
+            <ul>
+                <li>前4列已设置为固定列，水平滚动时保持可见</li>
+                <li>使用JavaScript动态计算列宽度，解决1像素偏移问题</li>
+                <li>支持列宽度调整和窗口大小变化</li>
+                <li>包含悬停和选中状态的视觉效果</li>
+            </ul>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn" onclick="resizeGrid()">调整表格大小</button>
+            <button class="btn" onclick="addData()">添加数据</button>
+            <button class="btn danger" onclick="clearGrid()">清空数据</button>
+            <button class="btn" onclick="refreshSticky()">刷新固定列</button>
+        </div>
+        
+        <div class="grid-container">
+            <table id="myGrid"></table>
+            <div id="myGridPager"></div>
+        </div>
+    </div>
+
+    <!-- jQuery 和 jqGrid 脚本 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/free-jqgrid@4.15.5/js/jquery.jqgrid.min.js"></script>
+    
+    <!-- 固定列修复脚本 -->
+    <script src="jqgrid-fixed-columns.js"></script>
+    
+    <script>
+        $(document).ready(function() {
+            // 示例数据
+            const sampleData = [
+                {id: 1, name: "张三", age: 25, city: "北京", department: "技术部", position: "工程师", salary: 8000, email: "zhangsan@example.com", phone: "13800138001", status: "在职"},
+                {id: 2, name: "李四", age: 30, city: "上海", department: "市场部", position: "经理", salary: 12000, email: "lisi@example.com", phone: "13800138002", status: "在职"},
+                {id: 3, name: "王五", age: 28, city: "广州", department: "财务部", position: "会计", salary: 6000, email: "wangwu@example.com", phone: "13800138003", status: "在职"},
+                {id: 4, name: "赵六", age: 35, city: "深圳", department: "人事部", position: "主管", salary: 10000, email: "zhaoliu@example.com", phone: "13800138004", status: "在职"},
+                {id: 5, name: "钱七", age: 26, city: "杭州", department: "技术部", position: "工程师", salary: 7500, email: "qianqi@example.com", phone: "13800138005", status: "在职"}
+            ];
+            
+            // 初始化jqGrid
+            $("#myGrid").jqGrid({
+                datatype: "local",
+                data: sampleData,
+                colNames: ['ID', '姓名', '年龄', '城市', '部门', '职位', '薪资', '邮箱', '电话', '状态'],
+                colModel: [
+                    {name: 'id', index: 'id', width: 50, sorttype: "int", key: true},
+                    {name: 'name', index: 'name', width: 80, editable: true},
+                    {name: 'age', index: 'age', width: 60, sorttype: "int", editable: true},
+                    {name: 'city', index: 'city', width: 80, editable: true},
+                    {name: 'department', index: 'department', width: 100, editable: true},
+                    {name: 'position', index: 'position', width: 100, editable: true},
+                    {name: 'salary', index: 'salary', width: 80, sorttype: "int", formatter: 'currency', editable: true},
+                    {name: 'email', index: 'email', width: 180, editable: true},
+                    {name: 'phone', index: 'phone', width: 120, editable: true},
+                    {name: 'status', index: 'status', width: 80, editable: true}
+                ],
+                rowNum: 10,
+                rowList: [10, 20, 30],
+                pager: '#myGridPager',
+                sortname: 'id',
+                viewrecords: true,
+                sortorder: "desc",
+                caption: "员工信息表",
+                height: 400,
+                width: 800,
+                resizable: true,
+                autowidth: false,
+                shrinkToFit: false,
+                loadComplete: function() {
+                    // 表格加载完成后应用固定列
+                    $(this).fixStickyColumns(4);
+                },
+                onSelectRow: function(id) {
+                    console.log('选中行ID:', id);
+                }
+            });
+            
+            // 添加导航按钮
+            $("#myGrid").jqGrid('navGrid', '#myGridPager', {
+                edit: true,
+                add: true,
+                del: true,
+                search: true,
+                refresh: true
+            });
+        });
+        
+        // 工具函数
+        function resizeGrid() {
+            const newWidth = $("#myGrid").width() === 800 ? 1000 : 800;
+            $("#myGrid").jqGrid('setGridWidth', newWidth);
+        }
+        
+        function addData() {
+            const newId = new Date().getTime();
+            const newRow = {
+                id: newId,
+                name: "新员工" + newId,
+                age: Math.floor(Math.random() * 20) + 25,
+                city: "新城市",
+                department: "新部门",
+                position: "新职位",
+                salary: Math.floor(Math.random() * 5000) + 5000,
+                email: "new" + newId + "@example.com",
+                phone: "138" + String(newId).substr(-8),
+                status: "在职"
+            };
+            $("#myGrid").jqGrid('addRowData', newId, newRow);
+        }
+        
+        function clearGrid() {
+            $("#myGrid").jqGrid('clearGridData');
+        }
+        
+        function refreshSticky() {
+            // 重新应用固定列
+            $("#myGrid").fixStickyColumns(4);
+            alert('固定列已刷新');
+        }
+        
+        // 监听窗口大小变化
+        $(window).on('resize', function() {
+            $("#myGrid").jqGrid('setGridWidth', $(window).width() - 100);
+        });
+    </script>
+</body>
+</html>

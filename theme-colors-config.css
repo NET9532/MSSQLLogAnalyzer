@@ -1,0 +1,76 @@
+/* jqGrid 主题颜色配置 - 根据你的主题选择对应的颜色 */
+
+/* ===== UI-Lightness 主题（默认浅色主题） ===== */
+.theme-ui-lightness .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(n+2):nth-child(-n+5) {
+    background: #eeeeee !important;
+    background-image: linear-gradient(to bottom, #f8f8f8, #e8e8e8) !important;
+    border-color: #ddd !important;
+}
+
+/* ===== UI-Darkness 主题（深色主题） ===== */
+.theme-ui-darkness .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(n+2):nth-child(-n+5) {
+    background: #444444 !important;
+    background-image: linear-gradient(to bottom, #555555, #333333) !important;
+    border-color: #666 !important;
+    color: #fff !important;
+}
+
+/* ===== Bootstrap 主题 ===== */
+.theme-bootstrap .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(n+2):nth-child(-n+5) {
+    background: #f8f9fa !important;
+    background-image: linear-gradient(to bottom, #ffffff, #f1f3f4) !important;
+    border-color: #dee2e6 !important;
+}
+
+/* ===== 自定义蓝色主题 ===== */
+.theme-blue .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(n+2):nth-child(-n+5) {
+    background: #2196F3 !important;
+    background-image: linear-gradient(to bottom, #42a5f5, #1976D2) !important;
+    border-color: #1976D2 !important;
+    color: #fff !important;
+}
+
+/* ===== 自定义绿色主题 ===== */
+.theme-green .ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(n+2):nth-child(-n+5) {
+    background: #4CAF50 !important;
+    background-image: linear-gradient(to bottom, #66BB6A, #388E3C) !important;
+    border-color: #388E3C !important;
+    color: #fff !important;
+}
+
+/* ===== 如何使用 ===== */
+/*
+在你的页面容器上添加相应的主题类：
+
+<div class="gridPanel theme-ui-lightness">
+    <table id="gridTable"></table>
+</div>
+
+或者直接在表格上添加：
+<table id="gridTable" class="theme-bootstrap"></table>
+
+如果不确定主题，可以查看你的页面引用的CSS文件：
+- jquery-ui.css 通常使用 ui-lightness
+- jquery-ui-dark.css 使用 ui-darkness  
+- bootstrap相关的使用 bootstrap主题
+*/
+
+/* ===== 根据现有样式自动检测（推荐） ===== */
+/* 如果你不想手动添加主题类，可以用这个自动检测方案 */
+
+/* 检测到ui-lightness主题时 */
+.ui-widget-header {
+    /* 这里放置检测逻辑，暂时使用默认的浅色配色 */
+}
+
+/* 你也可以直接覆盖现有的固定列表头样式 */
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(2),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(3),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(4),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(5) {
+    /* 使用与非固定列相同的样式 */
+    background: inherit !important;
+    background-image: inherit !important;
+    border-color: inherit !important;
+    color: inherit !important;
+}
