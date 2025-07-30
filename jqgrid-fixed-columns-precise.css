@@ -1,0 +1,109 @@
+/* jqGrid 固定列精确修复 - 解决1像素偏移问题 */
+
+/* 重置所有相关元素的box-sizing */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td,
+.ui-jqgrid .ui-jqgrid-htable thead tr th {
+    box-sizing: border-box;
+}
+
+/* 第一列固定 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:first-child,
+.ui-jqgrid .ui-jqgrid-htable thead tr th:first-child {
+    position: sticky !important;
+    left: 0 !important;
+    background: #fff !important;
+    z-index: 10 !important;
+    /* 使用box-shadow替代边框，避免影响布局 */
+    box-shadow: 1px 0 0 0 #ddd !important;
+    /* 确保边框不会被计算到宽度中 */
+    border-right: none !important;
+}
+
+/* 第二列固定 - 动态计算位置 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(2),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(2) {
+    position: sticky !important;
+    left: var(--col1-width, 30px) !important;
+    background: #fff !important;
+    z-index: 9 !important;
+    box-shadow: 1px 0 0 0 #ddd !important;
+    border-right: none !important;
+}
+
+/* 第三列固定 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(3),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(3) {
+    position: sticky !important;
+    left: var(--col1-2-width, 60px) !important;
+    background: #fff !important;
+    z-index: 8 !important;
+    box-shadow: 1px 0 0 0 #ddd !important;
+    border-right: none !important;
+}
+
+/* 第四列固定 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(4),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(4) {
+    position: sticky !important;
+    left: var(--col1-3-width, 90px) !important;
+    background: #fff !important;
+    z-index: 7 !important;
+    box-shadow: 1px 0 0 0 #ddd !important;
+    border-right: none !important;
+}
+
+/* 悬停效果 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr:hover td:nth-child(-n+4) {
+    background: #f5f5f5 !important;
+}
+
+/* 选中行效果 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr.ui-state-highlight td:nth-child(-n+4),
+.ui-jqgrid .ui-jqgrid-btable tbody tr.ui-row-ltr.ui-state-highlight td:nth-child(-n+4) {
+    background: #e6f3ff !important;
+}
+
+/* 确保表格可以水平滚动 */
+.ui-jqgrid .ui-jqgrid-bdiv {
+    overflow-x: auto !important;
+}
+
+/* 非固定列的z-index */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(n+5),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(n+5) {
+    position: relative;
+    z-index: 1;
+}
+
+/* 修复表格边框问题 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td {
+    border-left: none !important;
+}
+
+.ui-jqgrid .ui-jqgrid-htable thead tr th {
+    border-left: none !important;
+}
+
+/* 确保第一列有左边框 */
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:first-child,
+.ui-jqgrid .ui-jqgrid-htable thead tr th:first-child {
+    border-left: 1px solid #ddd !important;
+}
+
+/* 精确计算版本 - 如果你知道确切的列宽 */
+/*
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(2),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(2) {
+    left: 30px !important;
+}
+
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(3),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(3) {
+    left: 61px !important;
+}
+
+.ui-jqgrid .ui-jqgrid-btable tbody tr td:nth-child(4),
+.ui-jqgrid .ui-jqgrid-htable thead tr th:nth-child(4) {
+    left: 92px !important;
+}
+*/
